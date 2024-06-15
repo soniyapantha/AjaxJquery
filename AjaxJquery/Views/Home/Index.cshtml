@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>
+    <div class="row mb-3">
+        <label for="sonval1" class="col-md-3 col-form-label">First Value</label>
+        <div class="col-md-9">
+            <input type="text" id="sonval1" class="form-control" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="sonval2" class="col-md-3 col-form-label">Second Value</label>
+        <div class="col-md-9">
+            <input type="text" id="sonval2" class="form-control" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-3"></div>
+        <div class="col-md-9">
+            <a href="javascript:void(0)" class="btn btn-success me-2" onclick="fnSum()">SUM</a>
+            <a href="javascript:void(0)" class="btn btn-warning me-2" onclick="fnSub()">SUB</a>
+            <a href="javascript:void(0)" class="btn btn-danger" onclick="fnMul()">MUL</a>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-3"></div>
+        <div class="col-md-9">
+            <div id="divResult" class="alert alert-info d-none"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function fnSum() {
+        var x = parseInt($("#sonval1").val());
+        var y = parseInt($("#sonval2").val());
+        var z = x + y;
+        $("#divResult").html("Result: " + z).removeClass("d-none");
+    }
+
+    function fnSub() {
+        var x = parseInt($("#sonval1").val());
+        var y = parseInt($("#sonval2").val());
+        var z = x - y;
+        $("#divResult").html("Result: " + z).removeClass("d-none");
+    }
+
+    function fnMul() {
+        var x = parseInt($("#sonval1").val());
+        var y = parseInt($("#sonval2").val());
+        var z = x * y;
+        $("#divResult").html("Result: " + z).removeClass("d-none");
+    }
+</script>
+
+
+
+
+@* passing from data to controller using jquery *@
+@* ==== *@
+@* abo yo form data lai controller through pass garna we use ajax() *@
