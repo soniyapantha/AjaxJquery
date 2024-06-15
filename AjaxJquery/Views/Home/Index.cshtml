@@ -1,5 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var addUrl = Url.Action("Add", "Home");
+    var subUrl = Url.Action("Subtract", "Home");
+    var mulUrl = Url.Action("Multiply", "Home");
 }
 
 <div class="container mt-5">
@@ -22,9 +25,9 @@
     <div class="row mb-3">
         <div class="col-md-3"></div>
         <div class="col-md-9">
-            <a href="javascript:void(0)" class="btn btn-success me-2" onclick="fnSum()">SUM</a>
-            <a href="javascript:void(0)" class="btn btn-warning me-2" onclick="fnSub()">SUB</a>
-            <a href="javascript:void(0)" class="btn btn-danger" onclick="fnMul()">MUL</a>
+            <button type="button" class="btn btn-success me-2" onclick="fnSum()">SUM</button>
+            <button type="button" class="btn btn-warning me-2" onclick="fnSub()">SUB</button>
+            <button type="button" class="btn btn-danger" onclick="fnMul()">MUL</button>
         </div>
     </div>
     <div class="row mb-3">
@@ -35,33 +38,61 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    var addUrl = "@addUrl";
+    var subUrl = "@subUrl";
+    var mulUrl = "@mulUrl";
+
     function fnSum() {
         var x = parseInt($("#sonval1").val());
         var y = parseInt($("#sonval2").val());
-        var z = x + y;
-        $("#divResult").html("Result: " + z).removeClass("d-none");
+        $.ajax({
+            type: "POST",
+            url: addUrl,
+            data: { num1: x, num2: y },
+            success: function(response) {
+                $("#divResult").html("Result: " + response).removeClass("d-none");
+            },
+            error: function(req, status, error) {
+                alert("Error: " + error);
+            }
+        });
     }
 
     function fnSub() {
         var x = parseInt($("#sonval1").val());
         var y = parseInt($("#sonval2").val());
-        var z = x - y;
-        $("#divResult").html("Result: " + z).removeClass("d-none");
+        $.ajax({
+            type: "POST",
+            url: subUrl,
+            data: { num1: x, num2: y },
+            success: function(response) {
+                $("#divResult").html("Result: " + response).removeClass("d-none");
+            },
+            error: function(req, status, error) {
+                alert("Error: " + error);
+            }
+        });
     }
 
     function fnMul() {
         var x = parseInt($("#sonval1").val());
         var y = parseInt($("#sonval2").val());
-        var z = x * y;
-        $("#divResult").html("Result: " + z).removeClass("d-none");
+        $.ajax({
+            type: "POST",
+            url: mulUrl,
+            data: { num1: x, num2: y },
+            success: function(response) {
+                $("#divResult").html("Result: " + response).removeClass("d-none");
+            },
+            error: function(req, status, error) {
+                alert("Error: " + error);
+            }
+        });
     }
 </script>
 
-
-
-
-@* passing from data to controller using jquery *@
-@* ==== *@
-@* abo yo form data lai controller through pass garna we use ajax() *@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@* Placing <script> tags, including jQuery, at the end of your HTML file optimizes page load times,
+    ensures proper script execution timing, and aligns with best practices for web performance. 
+    This approach helps in building faster and more responsive web applications. *@

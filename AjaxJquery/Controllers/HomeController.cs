@@ -17,7 +17,26 @@ namespace AjaxJquery.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Add(int num1, int num2)
+        {
+            int result = num1 + num2;
+            return Content(result.ToString());
+        }
 
+        [HttpPost]
+        public IActionResult Subtract(int num1, int num2)
+        {
+            int result = num1 - num2;
+            return Content(result.ToString());
+        }
+
+        [HttpPost]
+        public IActionResult Multiply(int num1, int num2)
+        {
+            int result = num1 * num2;
+            return Content(result.ToString());
+        }
         public IActionResult Privacy()
         {
             return View();
