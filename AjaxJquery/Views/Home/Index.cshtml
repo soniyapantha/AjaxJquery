@@ -3,6 +3,7 @@
     var addUrl = Url.Action("Add", "Home");
     var subUrl = Url.Action("Subtract", "Home");
     var mulUrl = Url.Action("Multiply", "Home");
+    var divUrl = Url.Action("Division", "Home");
 }
 
 <div class="container mt-5">
@@ -28,6 +29,9 @@
             <button type="button" class="btn btn-success me-2" onclick="fnSum()">SUM</button>
             <button type="button" class="btn btn-warning me-2" onclick="fnSub()">SUB</button>
             <button type="button" class="btn btn-danger" onclick="fnMul()">MUL</button>
+            <button type="button" class="btn btn-success" onclick="fnDiv()">Div</button>
+            <button type="button" class="btn btn-success" onclick="fnCalculate()">Calculate</button>
+
         </div>
     </div>
     <div class="row mb-3">
@@ -42,6 +46,30 @@
     var addUrl = "@addUrl";
     var subUrl = "@subUrl";
     var mulUrl = "@mulUrl";
+    var divUrl = "@divUrl";
+
+    // model properties-> Add Substract Multiply Division this all is model properties 
+    // and  when we write  model properties in jquery we write in lowercase like:add substract.....
+    function fnCalculate() {
+        var x = parseInt($("#sonval1").val());
+        var y = parseInt($("#sonval2").val());
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("ComputeNumber", "Home")",
+            data: { num1: x, num2: y },
+            dataType: "json",
+            success: function (response) {
+                var resultHtml = "Addition: " + response.add + "<br>" +
+                    "Subtraction: " + response.substract + "<br>" +
+                    "Multiplication: " + response.multiply + "<br>" +
+                    "Division: " + response.division;
+                $("#divResult").html(resultHtml).removeClass("d-none");
+            },
+            error: function (response) {
+                $("#divResult").html("Error occurred").removeClass("d-none");
+            }
+        });
+    }
 
     function fnSum() {
         var x = parseInt($("#sonval1").val());
@@ -50,10 +78,10 @@
             type: "POST",
             url: addUrl,
             data: { num1: x, num2: y },
-            success: function(response) {
+            success: function (response) {
                 $("#divResult").html("Result: " + response).removeClass("d-none");
             },
-            error: function(req, status, error) {
+            error: function (req, status, error) {
                 alert("Error: " + error);
             }
         });
@@ -66,10 +94,10 @@
             type: "POST",
             url: subUrl,
             data: { num1: x, num2: y },
-            success: function(response) {
+            success: function (response) {
                 $("#divResult").html("Result: " + response).removeClass("d-none");
             },
-            error: function(req, status, error) {
+            error: function (req, status, error) {
                 alert("Error: " + error);
             }
         });
@@ -82,10 +110,26 @@
             type: "POST",
             url: mulUrl,
             data: { num1: x, num2: y },
-            success: function(response) {
+            success: function (response) {
                 $("#divResult").html("Result: " + response).removeClass("d-none");
             },
-            error: function(req, status, error) {
+            error: function (req, status, error) {
+                alert("Error: " + error);
+            }
+        });
+    }
+
+    function fnDiv() {
+        var x = parseInt($("#sonval1").val());
+        var y = parseInt($("#sonval2").val());
+        $.ajax({
+            type: "POST",
+            url: divUrl,
+            data: { num1: x, num2: y },
+            success: function (response) {
+                $("#divResult").html("Result: " + response).removeClass("d-none");
+            },
+            error: function (req, status, error) {
                 alert("Error: " + error);
             }
         });
